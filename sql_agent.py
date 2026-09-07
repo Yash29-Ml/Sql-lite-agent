@@ -7,7 +7,7 @@ from langchain_community.utilities import SQLDatabase
 from langchain_ollama import ChatOllama
 
 from langgraph.graph import StateGraph, END
-
+import os 
 
 # ============================================================
 # STREAMLIT CONFIG
@@ -81,9 +81,20 @@ create_database()
 # 3. OLLAMA MODEL
 # ============================================================
 
-llm = ChatOllama(
-    model="llama3.2",
-    temperature=0
+if "GROQ_API_KEY" not in st.secrets:
+    st.error("GROQ_API_KEY is missing.")
+
+    st.info(
+        "Add your Groq API key to "
+        ".streamlit\secrets.toml as:\n\n"
+        "GROQ_API_KEY = \"GROQ_API_KEY\""
+    )
+
+    st.stop()
+llm = ChatGroq(
+    model="openai/gpt-oss-120b",
+    temperature=0,
+    api_key=st.secrets["GROQ_API_KEY"]
 )
 
 
