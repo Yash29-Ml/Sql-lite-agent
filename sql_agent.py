@@ -4,7 +4,7 @@ from typing import TypedDict
 from sqlalchemy import create_engine, text
 
 from langchain_community.utilities import SQLDatabase
-from langchain_ollama import ChatOllama
+from langchain_groq import ChatGroq
 
 from langgraph.graph import StateGraph, END
 import os 
